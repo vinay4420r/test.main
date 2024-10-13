@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for better visuals */
+        body {
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h2, h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            margin-bottom: 30px;
+        }
+        ul {
+            padding-left: 0;
+            list-style-type: none;
+        }
+        li {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Admin: Manage Submissions</h2>
+
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="POST" action="/admin">
+                    <div class="form-group">
+                        <label for="submission_code">Enter Submission Code:</label>
+                        <input type="text" class="form-control" id="submission_code" name="submission_code" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new_status">New Status:</label>
+                        <!-- Replaced select dropdown with text input -->
+                        <input type="text" class="form-control" id="new_status" name="new_status" required placeholder="Enter custom status (e.g. Payment Pending)">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Update Status</button>
+                </form>
+            </div>
+        </div>
+
+        <h3>All Submissions</h3>
+
+        <div class="row">
+            <div class="col-12">
+                <ul class="list-group">
+                    {% for code, details in submissions.items() %}
+                    <li class="list-group-item">
+                        <strong>Code:</strong> {{ code }} <br>
+                        <strong>Title:</strong> {{ details['paper_title'] }} <br>
+                        <strong>Status:</strong> {{ details['status'] }} <br>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies (optional but recommended for interactive components) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
